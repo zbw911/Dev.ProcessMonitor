@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.ProcessMonitor.ConsoleT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.ProcessMonitor.TestTargerExe", "Dev.ProcessMonitor.TestTargerExe\Dev.ProcessMonitor.TestTargerExe.csproj", "{097C1CE6-CD7B-4D1A-BA4E-E9042F48241A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.ProcessMonitor.FormTest", "Dev.ProcessMonitor.FormTest\Dev.ProcessMonitor.FormTest.csproj", "{7CABBCDE-14EB-4CF4-9A39-CFE6A0863384}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{097C1CE6-CD7B-4D1A-BA4E-E9042F48241A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{097C1CE6-CD7B-4D1A-BA4E-E9042F48241A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{097C1CE6-CD7B-4D1A-BA4E-E9042F48241A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CABBCDE-14EB-4CF4-9A39-CFE6A0863384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CABBCDE-14EB-4CF4-9A39-CFE6A0863384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CABBCDE-14EB-4CF4-9A39-CFE6A0863384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CABBCDE-14EB-4CF4-9A39-CFE6A0863384}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

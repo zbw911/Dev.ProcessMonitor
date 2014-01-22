@@ -44,6 +44,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dev.ProcessMonitor\Dev.ProcessMonitor.csproj">
+      <Project>{bde30bd4-1a57-432b-80e2-ed052387926f}</Project>
+      <Name>Dev.ProcessMonitor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
