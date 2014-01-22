@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Args.cs" />
     <Compile Include="ProcessStarterSync.cs" />
-    <Compile Include="ProcessStarter.cs" />
+    <Compile Include="ProcessStarterAsyn.cs" />
     <Compile Include="SystemInfo.cs" />
     <Compile Include="ProcessManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

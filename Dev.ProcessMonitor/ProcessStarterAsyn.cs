@@ -2,24 +2,20 @@
 //  Created by zbw911 
 //  创建于：2014年01月22日 15:08
 //  
-//  修改于：2014年01月22日 16:50
-//  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessStarter.cs
+//  修改于：2014年01月22日 18:35
+//  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessStarterAsyn.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
-
 using System;
 using System.Diagnostics;
 
 namespace Dev.ProcessMonitor
 {
-  
-
-
     /// <summary>
     ///     进程启动器
     /// </summary>
-    public class ProcessStarter
+    public class ProcessStarterAsyn
     {
         #region Readonly & Static Fields
 
@@ -37,7 +33,7 @@ namespace Dev.ProcessMonitor
 
         #region C'tors
 
-        public ProcessStarter(string fileName, string arguments)
+        public ProcessStarterAsyn(string fileName, string arguments)
         {
             this.fileName = fileName;
             this.arguments = arguments;
@@ -53,12 +49,12 @@ namespace Dev.ProcessMonitor
 
         #region Instance Methods
 
-        public void Cancel()
+        public void CancelAsyn()
         {
             CancellationPending = true;
         }
 
-        public void Start()
+        public void StartAsyn()
         {
             //var worker = new BackgroundWorker();
             CancellationPending = false;

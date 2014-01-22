@@ -1,34 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2014年01月22日 17:30
+//  
+//  修改于：2014年01月22日 18:35
+//  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor.WindowServiceTest/Service1.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
 using System.ServiceProcess;
-using System.Text;
-using System.Windows.Forms;
+using Dev.Log;
+using Dev.Log.Config;
+using Dev.Log.Impl;
 
 namespace Dev.ProcessMonitor.WindowServiceTest
 {
     public partial class Service1 : ServiceBase
     {
+        #region C'tors
+
         public Service1()
         {
-            Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToFile("./test.txt"));
+            Setting.AttachLog(new ObserverLogToFile("./test.txt"));
 
-            Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToLog4net());
+            Setting.AttachLog(new ObserverLogToLog4net());
 
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Instance Methods
+
         protected override void OnStart(string[] args)
         {
             //MessageBox.Show("asdfasdfasdf");
-            Dev.Log.Loger.Error("testaaa");
+            Loger.Error("testaaa");
         }
 
         protected override void OnStop()
         {
         }
+
+        #endregion
     }
 }
