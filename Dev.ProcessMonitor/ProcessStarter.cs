@@ -1,27 +1,19 @@
-﻿using System;
-using System.ComponentModel;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2014年01月22日 15:08
+//  
+//  修改于：2014年01月22日 16:50
+//  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessStarter.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Diagnostics;
 
 namespace Dev.ProcessMonitor
 {
-    public class OutArg : EventArgs
-    {
-        #region Instance Properties
-
-        public string OutPut { get; set; }
-
-        public int ProcessId { get; set; }
-
-        #endregion
-    }
-
-    public class StandardOutArg : OutArg
-    {
-    }
-
-    public class StandardErrorArg : OutArg
-    {
-    }
+  
 
 
     /// <summary>
@@ -38,6 +30,7 @@ namespace Dev.ProcessMonitor
 
         #region Fields
 
+        private bool CancellationPending;
         private string standardError;
 
         #endregion
@@ -60,10 +53,15 @@ namespace Dev.ProcessMonitor
 
         #region Instance Methods
 
+        public void Cancel()
+        {
+            CancellationPending = true;
+        }
+
         public void Start()
         {
-            var worker = new BackgroundWorker();
-
+            //var worker = new BackgroundWorker();
+            CancellationPending = false;
 
             try
             {
@@ -73,7 +71,7 @@ namespace Dev.ProcessMonitor
                 //p.ErrorDataReceived  +=p_ErrorDataReceived;
 
                 p.ErrorDataReceived += p_ErrorDataReceived;
-                p.StartInfo.FileName = fileName; //@"mencoder.exe";
+                p.StartInfo.FileName = fileName; //@"";
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
@@ -85,14 +83,14 @@ namespace Dev.ProcessMonitor
 
                 ProcessId = p.Id;
 
-                //nur eins darf synchron gelesen werden!! http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
+                // http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
                 p.BeginErrorReadLine();
                 string standardOut;
-                while (((standardOut = p.StandardOutput.ReadLine()) != null) && (!worker.CancellationPending))
+                while (((standardOut = p.StandardOutput.ReadLine()) != null) && (!CancellationPending))
                 {
                     OnStandardOut(standardOut);
                 }
-                if (!worker.CancellationPending)
+                if (!CancellationPending)
                 {
                     p.WaitForExit();
                     string result = "Exited with the Exitcode: " + p.ExitCode + "\n" + standardError;

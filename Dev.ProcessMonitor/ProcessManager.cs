@@ -1,4 +1,14 @@
-﻿using System;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2014年01月21日 14:50
+//  
+//  修改于：2014年01月22日 16:50
+//  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessManager.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,9 +42,53 @@ namespace Dev.ProcessMonitor
         {
             Process[] proc = Process.GetProcessesByName(processname);
 
-            bool x = proc.First().Responding;
+            return proc.Length != 0;
+        }
 
-            return !(proc.Length == 0 && proc == null);
+
+        public static bool IsProcessResponding(int processId)
+        {
+            try
+            {
+                var prcess = Process.GetProcessById(processId);
+
+                return prcess.Responding;
+            }
+            catch (System.ArgumentException e)
+            {
+
+                return false;
+            }
+            catch (InvalidOperationException e)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 进程是否正在运行
+        /// </summary>
+        /// <param name="processId"></param>
+        /// <returns></returns>
+        public static bool IsProcessRunning(int processId)
+        {
+            try
+            {
+                var prcess = Process.GetProcessById(processId);
+
+                return true;
+            }
+            catch (System.ArgumentException e)
+            {
+
+                return false;
+            }
+            catch (InvalidOperationException e)
+            {
+                return false;
+            }
+
+
         }
 
         /// <summary>
@@ -80,7 +134,7 @@ namespace Dev.ProcessMonitor
         public static IDictionary<int, double> ProcessCpu(int processid, int interval = 1*1000)
         {
             Process processes = Process.GetProcessById(processid);
-            return Cpu(new[] {processes}, interval);
+            return Cpu(new[] { processes }, interval);
         }
 
         /// <summary>
@@ -123,7 +177,7 @@ namespace Dev.ProcessMonitor
 
             foreach (var l in dicle)
             {
-                double c = l.Value/(processorcount*interval);
+                double c = l.Value / (processorcount * interval);
 
                 result[l.Key] = c;
             }

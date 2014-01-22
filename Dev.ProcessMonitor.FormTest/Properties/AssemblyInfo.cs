@@ -1,4 +1,14 @@
-﻿using System.Reflection;
+﻿// ***********************************************************************************
+//  Created by zbw911 
+//  创建于：2014年01月22日 15:52
+//  
+//  修改于：2014年01月22日 16:50
+//  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor.FormTest/AssemblyInfo.cs
+//  
+//  如果有更好的建议或意见请邮件至 zbw911#gmail.com
+// ***********************************************************************************
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // 有关程序集的常规信息通过以下
