@@ -29,11 +29,20 @@ namespace Dev.ProcessMonitor
     /// </summary>
     public class ProcessStarter
     {
-        private string fileName;
-        private string arguments;
+        #region Readonly & Static Fields
+
+        private readonly string arguments;
+        private readonly string fileName;
+
+        #endregion
+
         #region Fields
 
         private string standardError;
+
+        #endregion
+
+        #region C'tors
 
         public ProcessStarter(string fileName, string arguments)
         {
@@ -43,16 +52,18 @@ namespace Dev.ProcessMonitor
 
         #endregion
 
+        #region Instance Properties
+
+        public int ProcessId { get; set; }
+
+        #endregion
+
         #region Instance Methods
 
         public void Start()
         {
-            // Get the BackgroundWorker that raised this event.
             var worker = new BackgroundWorker();
-            // Assign the result of the computation
-            // to the Result property of the DoWorkEventArgs
-            // object. This is will be available to the
-            // RunWorkerCompleted eventhandler.
+
 
             try
             {
@@ -84,7 +95,7 @@ namespace Dev.ProcessMonitor
                 if (!worker.CancellationPending)
                 {
                     p.WaitForExit();
-                    var result = "Exited with the Exitcode: " + p.ExitCode + "\n" + standardError;
+                    string result = "Exited with the Exitcode: " + p.ExitCode + "\n" + standardError;
                     OnStandardOut(result);
                 }
                 else
@@ -100,13 +111,11 @@ namespace Dev.ProcessMonitor
             }
             catch (Exception ex)
             {
-                var result = ex.Message;
+                string result = ex.Message;
                 OnStandardErrorOut(result);
                 throw;
             }
         }
-
-        public int ProcessId { get; set; }
 
         protected virtual void OnStandardErrorOut(StandardErrorArg e)
         {
@@ -116,7 +125,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardErrorOut(string stre)
         {
-            OnStandardErrorOut(new StandardErrorArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardErrorOut(new StandardErrorArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         protected virtual void OnStandardOut(StandardOutArg e)
@@ -128,7 +137,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardOut(string stre)
         {
-            OnStandardOut(new StandardOutArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardOut(new StandardOutArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         #endregion

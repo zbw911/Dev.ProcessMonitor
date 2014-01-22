@@ -75,7 +75,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardErrorOut(string stre)
         {
-            OnStandardErrorOut(new StandardErrorArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardErrorOut(new StandardErrorArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         protected virtual void OnStandardOut(StandardOutArg e)
@@ -87,7 +87,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardOut(string stre)
         {
-            OnStandardOut(new StandardOutArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardOut(new StandardOutArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         #endregion
@@ -154,7 +154,6 @@ namespace Dev.ProcessMonitor
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

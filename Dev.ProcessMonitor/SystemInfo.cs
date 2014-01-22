@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Management;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace Dev.ProcessMonitor
 {
     public class SystemInfo
     {
-        private int m_ProcessorCount = 0;   //CPU个数
-        private PerformanceCounter pcCpuLoad;   //CPU计数器
-        private long m_PhysicalMemory = 0;   //物理内存
+        #region Readonly & Static Fields
 
-        #region 构造函数
+        private readonly long m_PhysicalMemory; //物理内存
+        private readonly int m_ProcessorCount; //CPU个数
+        private readonly PerformanceCounter pcCpuLoad; //CPU计数器
+
+        #endregion
+
+        #region C'tors
+
         /// <summary>
-        /// 构造函数，初始化计数器等
+        ///     构造函数，初始化计数器等
         /// </summary>
         public SystemInfo()
         {
@@ -28,7 +30,7 @@ namespace Dev.ProcessMonitor
             m_ProcessorCount = Environment.ProcessorCount;
 
             //获得物理内存
-            ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
+            var mc = new ManagementClass("Win32_ComputerSystem");
             ManagementObjectCollection moc = mc.GetInstances();
             foreach (ManagementObject mo in moc)
             {
@@ -38,37 +40,21 @@ namespace Dev.ProcessMonitor
                 }
             }
         }
+
         #endregion
 
-        #region CPU个数
-        /// <summary>
-        /// 获取CPU个数
-        /// </summary>
-        public int ProcessorCount
-        {
-            get
-            {
-                return m_ProcessorCount;
-            }
-        }
-        #endregion
+        #region Instance Properties
 
-        #region CPU占用率
         /// <summary>
-        /// 获取CPU占用率
+        ///     获取CPU占用率
         /// </summary>
         public float CpuLoad
         {
-            get
-            {
-                return pcCpuLoad.NextValue();
-            }
+            get { return pcCpuLoad.NextValue(); }
         }
-        #endregion
 
-        #region 可用内存
         /// <summary>
-        /// 获取可用内存
+        ///     获取可用内存
         /// </summary>
         public long MemoryAvailable
         {
@@ -80,30 +66,34 @@ namespace Dev.ProcessMonitor
                 //{
                 //    availablebytes = long.Parse(mo["Availablebytes"].ToString());
                 //}
-                ManagementClass mos = new ManagementClass("Win32_OperatingSystem");
+                var mos = new ManagementClass("Win32_OperatingSystem");
                 foreach (ManagementObject mo in mos.GetInstances())
                 {
                     if (mo["FreePhysicalMemory"] != null)
                     {
-                        availablebytes = 1024 * long.Parse(mo["FreePhysicalMemory"].ToString());
+                        availablebytes = 1024*long.Parse(mo["FreePhysicalMemory"].ToString());
                     }
                 }
                 return availablebytes;
             }
         }
-        #endregion
 
-        #region 物理内存
         /// <summary>
-        /// 获取物理内存
+        ///     获取物理内存
         /// </summary>
         public long PhysicalMemory
         {
-            get
-            {
-                return m_PhysicalMemory;
-            }
+            get { return m_PhysicalMemory; }
         }
+
+        /// <summary>
+        ///     获取CPU个数
+        /// </summary>
+        public int ProcessorCount
+        {
+            get { return m_ProcessorCount; }
+        }
+
         #endregion
     }
 }

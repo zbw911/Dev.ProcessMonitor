@@ -1,35 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Dev.ProcessMonitor.ConsoleTest
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
-        {
-            var filename = @"..\..\..\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
-            var arg = "";
+        #region Class Methods
 
-            Dev.ProcessMonitor.ProcessStarter starter = new ProcessStarter(filename, arg);
+        private static void Main(string[] args)
+        {
+            string filename =
+                @"..\..\..\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
+            string arg = "";
+
+            var starter = new ProcessStarter(filename, arg);
             starter.StandardErrorOut += starter_StandardErrorOut;
             starter.StandardOut += starter_StandardOut;
             starter.Start();
 
 
             Console.WriteLine("pressanykey");
-
         }
 
-        static void starter_StandardOut(object sender, StandardOutArg e)
+        private static void starter_StandardErrorOut(object sender, StandardErrorArg e)
+        {
+            Console.WriteLine("error=>" + e.ProcessId + "=>" + e.OutPut);
+        }
+
+        private static void starter_StandardOut(object sender, StandardOutArg e)
         {
             Console.WriteLine("standout=>" + e.ProcessId + "=>" + e.OutPut);
         }
 
-        static void starter_StandardErrorOut(object sender, StandardErrorArg e)
-        {
-            Console.WriteLine("error=>" + e.ProcessId + "=>" + e.OutPut);
-        }
+        #endregion
     }
 }
