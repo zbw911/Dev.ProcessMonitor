@@ -18,6 +18,8 @@ namespace Dev.ProcessMonitor.ConsoleTest
 
         private static void Main(string[] args)
         {
+
+
             string filename =
                 @"..\..\..\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
             string arg = "";
