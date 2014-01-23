@@ -31,22 +31,24 @@ namespace Dev.ProcessMonitor.FormTest
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
 
-            Dev.Log.Loger.Error("启动中。。。。。。。。。。。。。。。。。。");
+          
 
             int all = 10000;
             Dev.Log.Config.Setting.SetLogSeverity(Log.LogSeverity.Debug);
             Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToLog4net());
 
-            for (int i = 0; i < all; i++)
-            {
-                //if (i == all/2)
-                //    throw new Exception("人为退出");
 
-                Console.WriteLine(i + "<:>" + DateTime.Now);
+            Dev.Log.Loger.Error("启动中。。。。。。。。。。。。。。。。。。");
+            //for (int i = 0; i < all; i++)
+            //{
+            //    //if (i == all/2)
+            //    //    throw new Exception("人为退出");
+
+            //    Console.WriteLine(i + "<:>" + DateTime.Now);
 
 
-                Dev.Log.Loger.Error(i + "<:>" + DateTime.Now);
-            }
+            //    Dev.Log.Loger.Error(i + "<:>" + DateTime.Now);
+            //}
             x();
         }
 
@@ -73,6 +75,7 @@ namespace Dev.ProcessMonitor.FormTest
 
                 Dev.Log.Loger.Error(str);
 
+                throw;
                 //MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

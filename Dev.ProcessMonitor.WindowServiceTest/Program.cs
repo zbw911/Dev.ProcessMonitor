@@ -11,6 +11,7 @@ using System.ServiceProcess;
 
 namespace Dev.ProcessMonitor.WindowServiceTest
 {
+   // 测试的时候安装服务
     //\bin\Debug>installutil Dev.ProcessMonitor.WindowServiceTest.exe
     //\bin\Debug>installutil /u Dev.ProcessMonitor.WindowServiceTest.exe
     internal static class Program

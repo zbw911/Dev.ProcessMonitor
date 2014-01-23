@@ -26,8 +26,7 @@ namespace Dev.ProcessMonitor.WindowServiceTest
         public Service1()
         {
             m = new Monitor(false);
-            //Setting.AttachLog(new ObserverLogToFile("./test.txt"));
-            //Setting.AttachLog(new Dev.Log.Impl.ObserverLogToEventlog());
+
 
             Setting.AttachLog(new ObserverLogToLog4net());
 
@@ -41,38 +40,15 @@ namespace Dev.ProcessMonitor.WindowServiceTest
         private Process p;
         protected override void OnStart(string[] args)
         {
-            //MessageBox.Show("asdfasdfasdf");
-            //Loger.Error("Start");
-
+           
             m = new Monitor(true);
             m.StandardErrorOut += m_StandardErrorOut;
             m.StandardOut += m_StandardOut;
             m.Start();
 
-
-            //BackgroundWorker bw = new BackgroundWorker();
-            //bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            //bw.RunWorkerAsync();
-
-
-
-
         }
 
-        private void bw_DoWork(object sender, DoWorkEventArgs e)
-        {
-            p = new Process();
-            var file =
-                @"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
 
-            //@"‪E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.FormTest\bin\Debug\Dev.ProcessMonitor.FormTest.exe";
-            p.StartInfo = new ProcessStartInfo(file);//@"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.ConsoleTest\bin\Debug\Dev.ProcessMonitor.ConsoleTest.exe");
-            p.Start();
-
-
-            p.WaitForExit();
-            base.Stop();
-        }
 
         void m_StandardOut(object sender, StandardOutArg e)
         {
@@ -86,10 +62,7 @@ namespace Dev.ProcessMonitor.WindowServiceTest
 
         protected override void OnStop()
         {
-            //if (p != null && !p.HasExited)
-            //    p.Kill();
-            //Loger.Error("Stop");
-            //m.Stop();
+            m.Stop();
         }
 
         #endregion

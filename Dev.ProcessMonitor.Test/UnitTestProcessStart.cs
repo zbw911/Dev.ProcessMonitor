@@ -7,6 +7,8 @@
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
+using System;
 using System.Diagnostics;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -97,6 +99,14 @@ namespace Dev.ProcessMonitor.Test
         }
 
 
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            var usrname = System.Environment.UserName;
+
+            Console.WriteLine(usrname);
+        }
 
         #endregion
     }

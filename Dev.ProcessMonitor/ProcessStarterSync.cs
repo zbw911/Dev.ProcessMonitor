@@ -132,12 +132,14 @@ namespace Dev.ProcessMonitor
 
             try
             {
-                parms.FileName =
-                   @"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
-          
-                Dev.Log.Loger.Error("现在启动的程序路径为=>" + parms.FileName);
+                //parms.FileName =
+                //   @"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
+                //parms.FileName =
+                //                 @"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.FormTest\bin\Debug\Dev.ProcessMonitor.FormTest.exe";
 
-                     _process = new Process();
+                Dev.Log.Loger.Info(string.Format("现在启动的程序路径为{0}", parms.FileName));
+
+                _process = new Process();
                 //Asynchron read of standardoutput:
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
 
@@ -149,6 +151,8 @@ namespace Dev.ProcessMonitor
                 _process.StartInfo.RedirectStandardError = true;
                 _process.StartInfo.UseShellExecute = false;
                 _process.StartInfo.CreateNoWindow = true;
+                //_process.StartInfo.UserName = System.Environment.UserName;
+                 
 
                 _process.StartInfo.Arguments = parms.Arguments;
                 _process.Start();
@@ -199,6 +203,7 @@ namespace Dev.ProcessMonitor
 
         private void ProcessErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
+            Dev.Log.Loger.Error(e.Data);
             _standardError += e.Data;
         }
 
