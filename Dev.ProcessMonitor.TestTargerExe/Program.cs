@@ -19,7 +19,8 @@ namespace Dev.ProcessMonitor.TestTargerExe
         private static void Main(string[] args)
         {
             int all = 10000;
-
+            Dev.Log.Config.Setting.SetLogSeverity(Log.LogSeverity.Debug);
+            Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToLog4net());
 
             for (int i = 0; i < all; i++)
             {
@@ -27,7 +28,9 @@ namespace Dev.ProcessMonitor.TestTargerExe
                 //    throw new Exception("人为退出");
 
                 Console.WriteLine(i + "<:>" + DateTime.Now);
-                Thread.Sleep(1);
+                
+
+                Dev.Log.Loger.Error(i + "<:>" + DateTime.Now);
             }
         }
 

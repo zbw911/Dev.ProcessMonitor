@@ -78,7 +78,7 @@ namespace Dev.ProcessMonitor
             _backgroundWorker1.CancelAsync();
         }
 
-        public void StartAsync()
+        public void StartSync()
         {
             _backgroundWorker1 = new BackgroundWorker();
             _backgroundWorker1.DoWork += backgroundWorker1_DoWork;
@@ -132,10 +132,12 @@ namespace Dev.ProcessMonitor
 
             try
             {
-
+                parms.FileName =
+                   @"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
+          
                 Dev.Log.Loger.Error("现在启动的程序路径为=>" + parms.FileName);
 
-                _process = new Process();
+                     _process = new Process();
                 //Asynchron read of standardoutput:
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
 

@@ -61,7 +61,7 @@ namespace Dev.ProcessMonitor.FormTest
             _processStarterSync.StandardErrorOut += starter_StandardErrorOut;
             _processStarterSync.StandardOut += starter_StandardOut;
             _processStarterSync.Finished += starter_Finished;
-            _processStarterSync.StartAsync();
+            _processStarterSync.StartSync();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -91,7 +91,11 @@ namespace Dev.ProcessMonitor.FormTest
         private void button4_Click(object sender, EventArgs e)
         {
             Monitor m = new Monitor(true);
+
+            m.StandardErrorOut += starter_StandardErrorOut;
+            m.StandardOut += starter_StandardOut;
             m.Start();
         }
+
     }
 }

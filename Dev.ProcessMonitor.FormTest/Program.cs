@@ -24,7 +24,7 @@ namespace Dev.ProcessMonitor.FormTest
         private static void Main()
         {
 
-            Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToEventlog());
+            //Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToLog4net());
 
 
             //Application.EnableVisualStyles();
@@ -32,6 +32,21 @@ namespace Dev.ProcessMonitor.FormTest
             //Application.Run(new Form1());
 
             Dev.Log.Loger.Error("启动中。。。。。。。。。。。。。。。。。。");
+
+            int all = 10000;
+            Dev.Log.Config.Setting.SetLogSeverity(Log.LogSeverity.Debug);
+            Dev.Log.Config.Setting.AttachLog(new Dev.Log.Impl.ObserverLogToLog4net());
+
+            for (int i = 0; i < all; i++)
+            {
+                //if (i == all/2)
+                //    throw new Exception("人为退出");
+
+                Console.WriteLine(i + "<:>" + DateTime.Now);
+
+
+                Dev.Log.Loger.Error(i + "<:>" + DateTime.Now);
+            }
             x();
         }
 
@@ -58,7 +73,7 @@ namespace Dev.ProcessMonitor.FormTest
 
                 Dev.Log.Loger.Error(str);
 
-                MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -67,7 +82,7 @@ namespace Dev.ProcessMonitor.FormTest
         {
             string str = GetExceptionMsg(e.Exception, e.ToString());
             Dev.Log.Loger.Error(str);
-            MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //LogManager.WriteLog(str);
         }
 
@@ -75,7 +90,7 @@ namespace Dev.ProcessMonitor.FormTest
         {
             string str = GetExceptionMsg(e.ExceptionObject as Exception, e.ToString());
             Dev.Log.Loger.Error(str);
-            MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //MessageBox.Show(str, "系统错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //LogManager.WriteLog(str);
         }
 

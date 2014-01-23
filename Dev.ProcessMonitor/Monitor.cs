@@ -109,7 +109,7 @@ namespace Dev.ProcessMonitor
                     {
                         Dev.Log.Loger.Info(app.Name + "启动完成");
                     };
-                    processstarter.StartAsync();
+                    processstarter.StartSync();
 
                     Dev.Log.Loger.Info(app.Name + "启动中");
                 }

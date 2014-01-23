@@ -66,7 +66,7 @@ namespace Dev.ProcessMonitor.Test
             //_processStarterSync.StandardErrorOut += starter_StandardErrorOut;
             //_processStarterSync.StandardOut += starter_StandardOut;
             //_processStarterSync.Finished += starter_Finished;
-            _processStarterSync.StartAsync();
+            _processStarterSync.StartSync();
 
             Process[] pro = Process.GetProcessesByName("Dev.ProcessMonitor.TestTargerExe");
 
