@@ -2,11 +2,12 @@
 //  Created by zbw911 
 //  创建于：2014年01月22日 15:08
 //  
-//  修改于：2014年01月22日 18:35
+//  修改于：2014年01月23日 21:25
 //  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessStarterAsyn.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Diagnostics;
 
@@ -119,7 +120,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardErrorOut(string stre)
         {
-            OnStandardErrorOut(new StandardErrorArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardErrorOut(new StandardErrorArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         protected virtual void OnStandardOut(StandardOutArg e)
@@ -131,7 +132,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardOut(string stre)
         {
-            OnStandardOut(new StandardOutArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardOut(new StandardOutArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         #endregion

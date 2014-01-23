@@ -2,15 +2,15 @@
 //  Created by zbw911 
 //  创建于：2014年01月23日 13:42
 //  
-//  修改于：2014年01月23日 14:50
+//  修改于：2014年01月23日 21:25
 //  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/Monitor.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 
 using System;
-using System.Diagnostics;
 using System.Threading;
+using Dev.Log;
 using Dev.ProcessMonitor.Config;
 
 namespace Dev.ProcessMonitor
@@ -86,49 +86,6 @@ namespace Dev.ProcessMonitor
             if (handler != null) handler(this, e);
         }
 
-        private void LoopCheck()
-        {
-            for (int i = 0; i < ConfigMananger.Apps.Count; i++)
-            {
-                AppConfigElement app = ConfigMananger.Apps[i];
-
-                bool isrun = ProcessManager.IsProcessRunning(app.Name);
-                bool isProcessResponding = ProcessManager.IsProcessResponding(app.Name);
-
-                Dev.Log.Loger.Debug("isProcessResponding=>" + isProcessResponding + ";isrun=>" + isrun);
-
-
-                 
-                if (!isrun || !isProcessResponding)
-                {
-                    ProcessManager.KillProcessByName(app.Name);
-                    var processstarter = new ProcessStarterSync(app.Path, app.Args);
-                    processstarter.StandardErrorOut += processstarter_StandardErrorOut;
-                    processstarter.StandardOut += processstarter_StandardOut;
-                    processstarter.Finished += (o, e) =>
-                    {
-                        Dev.Log.Loger.Info(app.Name + "启动完成");
-                    };
-                    processstarter.StartSync();
-
-                    Dev.Log.Loger.Info(app.Name + "启动中");
-                }
-            }
-        }
-
-
-
-        private void LoopKill()
-        {
-            for (int i = 0; i < ConfigMananger.Apps.Count; i++)
-            {
-                AppConfigElement app = ConfigMananger.Apps[i];
-
-                ProcessManager.KillProcessByName(app.Name);
-            }
-        }
-
-
         private void IntervalCheck()
         {
             int interval = ConfigMananger.CheckSetting.Interval;
@@ -140,7 +97,44 @@ namespace Dev.ProcessMonitor
 
                 LoopCheck();
 
-                Thread.Sleep(interval * 1000);
+                Thread.Sleep(interval*1000);
+            }
+        }
+
+        private void LoopCheck()
+        {
+            for (int i = 0; i < ConfigMananger.Apps.Count; i++)
+            {
+                AppConfigElement app = ConfigMananger.Apps[i];
+
+                bool isrun = ProcessManager.IsProcessRunning(app.Name);
+                bool isProcessResponding = ProcessManager.IsProcessResponding(app.Name);
+
+                Loger.Debug("isProcessResponding=>" + isProcessResponding + ";isrun=>" + isrun);
+
+
+                if (!isrun || !isProcessResponding)
+                {
+                    ProcessManager.KillProcessByName(app.Name);
+                    var processstarter = new ProcessStarterSync(app.Path, app.Args);
+                    processstarter.StandardErrorOut += processstarter_StandardErrorOut;
+                    processstarter.StandardOut += processstarter_StandardOut;
+                    processstarter.Finished += (o, e) => { Loger.Info(app.Name + "启动完成"); };
+                    processstarter.StartSync();
+
+                    Loger.Info(app.Name + "启动中");
+                }
+            }
+        }
+
+
+        private void LoopKill()
+        {
+            for (int i = 0; i < ConfigMananger.Apps.Count; i++)
+            {
+                AppConfigElement app = ConfigMananger.Apps[i];
+
+                ProcessManager.KillProcessByName(app.Name);
             }
         }
 

@@ -2,11 +2,12 @@
 //  Created by zbw911 
 //  创建于：2014年01月21日 14:50
 //  
-//  修改于：2014年01月22日 18:35
+//  修改于：2014年01月23日 21:25
 //  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessManager.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,11 +56,11 @@ namespace Dev.ProcessMonitor
 
         public static bool IsProcessResponding(string processName)
         {
-            var processes = Process.GetProcessesByName(processName);
+            Process[] processes = Process.GetProcessesByName(processName);
 
-            foreach (var process in processes)
+            foreach (Process process in processes)
             {
-                var isProcessResponding = IsProcessResponding(process.Id);
+                bool isProcessResponding = IsProcessResponding(process.Id);
 
                 if (!isProcessResponding)
                     return false;
@@ -105,17 +106,6 @@ namespace Dev.ProcessMonitor
         }
 
 
-        public static string ProcessPath(Process process)
-        {
-            return process.MainModule.FileName;
-        }
-
-        public static string ProcessPath(int processId)
-        {
-            var process = Process.GetProcessById(processId);
-            return process.MainModule.FileName;
-        }
-
         /// <summary>
         ///     Kills the process by id.
         /// </summary>
@@ -159,7 +149,18 @@ namespace Dev.ProcessMonitor
         public static IDictionary<int, double> ProcessCpu(int processid, int interval = 1*1000)
         {
             Process processes = Process.GetProcessById(processid);
-            return Cpu(new[] { processes }, interval);
+            return Cpu(new[] {processes}, interval);
+        }
+
+        public static string ProcessPath(Process process)
+        {
+            return process.MainModule.FileName;
+        }
+
+        public static string ProcessPath(int processId)
+        {
+            Process process = Process.GetProcessById(processId);
+            return process.MainModule.FileName;
         }
 
         /// <summary>
@@ -202,7 +203,7 @@ namespace Dev.ProcessMonitor
 
             foreach (var l in dicle)
             {
-                double c = l.Value / (processorcount * interval);
+                double c = l.Value/(processorcount*interval);
 
                 result[l.Key] = c;
             }

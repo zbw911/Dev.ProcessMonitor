@@ -2,14 +2,16 @@
 //  Created by zbw911 
 //  创建于：2014年01月22日 16:05
 //  
-//  修改于：2014年01月22日 18:35
+//  修改于：2014年01月23日 21:25
 //  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor/ProcessStarterSync.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using Dev.Log;
 
 namespace Dev.ProcessMonitor
 {
@@ -27,8 +29,8 @@ namespace Dev.ProcessMonitor
         #region Fields
 
         private BackgroundWorker _backgroundWorker1;
-        private string _standardError;
         private Process _process;
+        private string _standardError;
 
         #endregion
 
@@ -63,7 +65,6 @@ namespace Dev.ProcessMonitor
                 }
                 return _process.Id;
             }
-
         }
 
         #endregion
@@ -105,7 +106,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardErrorOut(string stre)
         {
-            OnStandardErrorOut(new StandardErrorArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardErrorOut(new StandardErrorArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         protected virtual void OnStandardOut(StandardOutArg e)
@@ -117,12 +118,18 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardOut(string stre)
         {
-            OnStandardOut(new StandardOutArg { ProcessId = ProcessId, OutPut = stre });
+            OnStandardOut(new StandardOutArg {ProcessId = ProcessId, OutPut = stre});
         }
 
         #endregion
 
         #region Event Handling
+
+        private void ProcessErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Loger.Error(e.Data);
+            _standardError += e.Data;
+        }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -137,7 +144,7 @@ namespace Dev.ProcessMonitor
                 //parms.FileName =
                 //                 @"E:\Github\Dev.ProcessMonitor\Dev.ProcessMonitor.FormTest\bin\Debug\Dev.ProcessMonitor.FormTest.exe";
 
-                Dev.Log.Loger.Info(string.Format("现在启动的程序路径为{0}", parms.FileName));
+                Loger.Info(string.Format("现在启动的程序路径为{0}", parms.FileName));
 
                 _process = new Process();
                 //Asynchron read of standardoutput:
@@ -152,7 +159,7 @@ namespace Dev.ProcessMonitor
                 _process.StartInfo.UseShellExecute = false;
                 _process.StartInfo.CreateNoWindow = true;
                 //_process.StartInfo.UserName = System.Environment.UserName;
-                 
+
 
                 _process.StartInfo.Arguments = parms.Arguments;
                 _process.Start();
@@ -199,12 +206,6 @@ namespace Dev.ProcessMonitor
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             OnFinished();
-        }
-
-        private void ProcessErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            Dev.Log.Loger.Error(e.Data);
-            _standardError += e.Data;
         }
 
         #endregion

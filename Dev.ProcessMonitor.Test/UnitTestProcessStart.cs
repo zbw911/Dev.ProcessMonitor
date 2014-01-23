@@ -2,7 +2,7 @@
 //  Created by zbw911 
 //  创建于：2014年01月22日 16:51
 //  
-//  修改于：2014年01月22日 18:35
+//  修改于：2014年01月23日 21:25
 //  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor.Test/UnitTestProcessStart.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
@@ -19,6 +19,14 @@ namespace Dev.ProcessMonitor.Test
     public class UnitTestProcessStart
     {
         #region Instance Methods
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            string usrname = Environment.UserName;
+
+            Console.WriteLine(usrname);
+        }
 
         [TestMethod]
         public void StartWinFormExe()
@@ -57,7 +65,7 @@ namespace Dev.ProcessMonitor.Test
 
             p.Start();
 
-            Thread.Sleep(3 * 1000);
+            Thread.Sleep(3*1000);
 
             ProcessManager.KillProcessById(p.Id);
         }
@@ -82,7 +90,6 @@ namespace Dev.ProcessMonitor.Test
         }
 
 
-
         [TestMethod]
         public void TestProcessPath()
         {
@@ -92,20 +99,9 @@ namespace Dev.ProcessMonitor.Test
 
             //var ps = new Dev.ProcessMonitor.ProcessStarterSync(filename, arg);
 
-            var p = Process.GetProcessById(1688);
+            Process p = Process.GetProcessById(1688);
 
-            var path = Dev.ProcessMonitor.ProcessManager.ProcessPath(p);
-
-        }
-
-
-
-        [TestMethod]
-        public void MyTestMethod()
-        {
-            var usrname = System.Environment.UserName;
-
-            Console.WriteLine(usrname);
+            string path = ProcessManager.ProcessPath(p);
         }
 
         #endregion

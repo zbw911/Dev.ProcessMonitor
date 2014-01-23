@@ -2,14 +2,13 @@
 //  Created by zbw911 
 //  创建于：2014年01月22日 15:52
 //  
-//  修改于：2014年01月22日 18:35
+//  修改于：2014年01月23日 21:25
 //  文件名：Dev.ProcessMonitor/Dev.ProcessMonitor.FormTest/Form1.cs
 //  
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
+
 using System;
-using System.Configuration;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Dev.ProcessMonitor.FormTest
@@ -69,6 +68,15 @@ namespace Dev.ProcessMonitor.FormTest
             _processStarterSync.CancelEncodeAsync();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var m = new Monitor(true);
+
+            m.StandardErrorOut += starter_StandardErrorOut;
+            m.StandardOut += starter_StandardOut;
+            m.Start();
+        }
+
         private void starter_Finished(object sender, EventArgs e)
         {
             MessageBox.Show("finished");
@@ -87,15 +95,5 @@ namespace Dev.ProcessMonitor.FormTest
         }
 
         #endregion
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Monitor m = new Monitor(true);
-
-            m.StandardErrorOut += starter_StandardErrorOut;
-            m.StandardOut += starter_StandardOut;
-            m.Start();
-        }
-
     }
 }
