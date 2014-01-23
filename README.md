@@ -9,3 +9,7 @@ C# 进行管理
 对于GUI可参见,当然，这是用户登录后的为每个用户会话显示应用程序GUI。
 这个好像有点难度。
 
+安装服务可以：
+ 
+    \bin\Debug>installutil Dev.ProcessMonitor.WindowService.exe 安装
+    \bin\Debug>installutil /u Dev.ProcessMonitor.WindowService.exe 卸载

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.ProcessMonitor.WindowSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.ProcessMonitor.WindowsService", "Dev.ProcessMonitor.WindowsService\Dev.ProcessMonitor.WindowsService.csproj", "{FE609ECA-4341-45DA-8C43-17EAE187D289}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestProjects", "TestProjects", "{246B33B8-EDCF-46CF-995B-3B4BD01BD1B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +56,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B13373DB-9AFF-4FDB-BD44-815692247159} = {246B33B8-EDCF-46CF-995B-3B4BD01BD1B6}
+		{8FB7AB0B-4A5C-44AF-A35A-2CA7CF018364} = {246B33B8-EDCF-46CF-995B-3B4BD01BD1B6}
+		{7CABBCDE-14EB-4CF4-9A39-CFE6A0863384} = {246B33B8-EDCF-46CF-995B-3B4BD01BD1B6}
+		{4EB9388C-457B-4824-B0D9-B05C76138B17} = {246B33B8-EDCF-46CF-995B-3B4BD01BD1B6}
+		{097C1CE6-CD7B-4D1A-BA4E-E9042F48241A} = {246B33B8-EDCF-46CF-995B-3B4BD01BD1B6}
 	EndGlobalSection
 EndGlobal
