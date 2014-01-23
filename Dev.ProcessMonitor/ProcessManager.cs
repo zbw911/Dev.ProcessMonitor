@@ -52,6 +52,25 @@ namespace Dev.ProcessMonitor
             }
         }
 
+
+        public static bool IsProcessResponding(string processName)
+        {
+            var processes = Process.GetProcessesByName(processName);
+
+            foreach (var process in processes)
+            {
+                var isProcessResponding = IsProcessResponding(process.Id);
+
+                if (!isProcessResponding)
+                    return false;
+            }
+
+            if (processes == null || processes.Length == 0)
+                return false;
+
+            return true;
+        }
+
         /// <summary>
         ///     Determines if the process is running or NOT.
         /// </summary>
@@ -83,6 +102,18 @@ namespace Dev.ProcessMonitor
             {
                 return false;
             }
+        }
+
+
+        public static string ProcessPath(Process process)
+        {
+            return process.MainModule.FileName;
+        }
+
+        public static string ProcessPath(int processId)
+        {
+            var process = Process.GetProcessById(processId);
+            return process.MainModule.FileName;
         }
 
         /// <summary>
@@ -128,7 +159,7 @@ namespace Dev.ProcessMonitor
         public static IDictionary<int, double> ProcessCpu(int processid, int interval = 1*1000)
         {
             Process processes = Process.GetProcessById(processid);
-            return Cpu(new[] {processes}, interval);
+            return Cpu(new[] { processes }, interval);
         }
 
         /// <summary>
@@ -171,7 +202,7 @@ namespace Dev.ProcessMonitor
 
             foreach (var l in dicle)
             {
-                double c = l.Value/(processorcount*interval);
+                double c = l.Value / (processorcount * interval);
 
                 result[l.Key] = c;
             }

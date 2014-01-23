@@ -23,8 +23,8 @@ namespace Dev.ProcessMonitor.TestTargerExe
 
             for (int i = 0; i < all; i++)
             {
-                if (i == all/2)
-                    throw new Exception("人为退出");
+                //if (i == all/2)
+                //    throw new Exception("人为退出");
 
                 Console.WriteLine(i + "<:>" + DateTime.Now);
                 Thread.Sleep(1);

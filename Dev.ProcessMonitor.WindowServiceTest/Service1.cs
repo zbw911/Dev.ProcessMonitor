@@ -18,11 +18,14 @@ namespace Dev.ProcessMonitor.WindowServiceTest
     {
         #region C'tors
 
+        private Monitor m;
         public Service1()
         {
-            Setting.AttachLog(new ObserverLogToFile("./test.txt"));
+            m = new Monitor(true);
+            //Setting.AttachLog(new ObserverLogToFile("./test.txt"));
+            //Setting.AttachLog(new Dev.Log.Impl.ObserverLogToEventlog());
 
-            Setting.AttachLog(new ObserverLogToLog4net());
+            //Setting.AttachLog(new ObserverLogToLog4net());
 
             InitializeComponent();
         }
@@ -34,11 +37,22 @@ namespace Dev.ProcessMonitor.WindowServiceTest
         protected override void OnStart(string[] args)
         {
             //MessageBox.Show("asdfasdfasdf");
-            Loger.Error("testaaa");
+            Loger.Error("Start");
+
+
+            //m.StandardErrorOut += m_StandardErrorOut;
+            m.Start();
+        }
+
+        void m_StandardErrorOut(object sender, StandardErrorArg e)
+        {
+            Loger.Error(e.OutPut);
         }
 
         protected override void OnStop()
         {
+            Loger.Error("Stop");
+            m.Stop();
         }
 
         #endregion

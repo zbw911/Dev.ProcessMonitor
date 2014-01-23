@@ -30,7 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dev.Log">
+      <HintPath>..\..\zbw911\Dev.All\DevLibs\ReleaseLib\Dev.Log.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
@@ -41,11 +45,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Args.cs" />
+    <Compile Include="Config\AppsCollection.cs" />
+    <Compile Include="Config\AppsSection.cs" />
+    <Compile Include="Config\AppConfigElement.cs" />
+    <Compile Include="Config\ConfigMananger.cs" />
+    <Compile Include="Monitor.cs" />
     <Compile Include="ProcessStarterSync.cs" />
     <Compile Include="ProcessStarterAsyn.cs" />
     <Compile Include="SystemInfo.cs" />
     <Compile Include="ProcessManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\App样例.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

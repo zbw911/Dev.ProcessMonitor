@@ -17,22 +17,37 @@ namespace Dev.ProcessMonitor.ConsoleTest
 
         private static void Main(string[] args)
         {
-            string filename =
-                @"..\..\..\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
-            string arg = "";
-
-
             //string filename =
-            //   @"..\..\..\Dev.ProcessMonitor.FormTest\bin\Debug\Dev.ProcessMonitor.FormTest.exe";
+            //    @"..\..\..\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
             //string arg = "";
 
-            var starter = new ProcessStarterAsyn(filename, arg);
-            starter.StandardErrorOut += starter_StandardErrorOut;
-            starter.StandardOut += starter_StandardOut;
-            starter.StartAsyn();
+
+            ////string filename =
+            ////   @"..\..\..\Dev.ProcessMonitor.FormTest\bin\Debug\Dev.ProcessMonitor.FormTest.exe";
+            ////string arg = "";
+
+            //var starter = new ProcessStarterAsyn(filename, arg);
+            //starter.StandardErrorOut += starter_StandardErrorOut;
+            //starter.StandardOut += starter_StandardOut;
+            //starter.StartAsyn();
 
 
-            Console.WriteLine("pressanykey");
+            //Console.WriteLine("pressanykey");
+
+
+            Monitor m = new Monitor(true);
+            m.StandardErrorOut += m_StandardErrorOut;
+            m.Start();
+
+            Console.ReadKey();
+
+
+            m.Stop();
+        }
+
+        static void m_StandardErrorOut(object sender, StandardErrorArg e)
+        {
+            Console.WriteLine(e.ProcessId + "=>" + e.OutPut);
         }
 
         private static void starter_StandardErrorOut(object sender, StandardErrorArg e)

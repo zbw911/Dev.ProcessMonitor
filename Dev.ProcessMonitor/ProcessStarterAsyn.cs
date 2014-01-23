@@ -64,7 +64,7 @@ namespace Dev.ProcessMonitor
                 var p = new Process();
                 //Asynchron read of standardoutput:
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
-                //p.ErrorDataReceived  +=p_ErrorDataReceived;
+                p.ErrorDataReceived += p_ErrorDataReceived;
 
                 p.ErrorDataReceived += p_ErrorDataReceived;
                 p.StartInfo.FileName = fileName; //@"";
@@ -119,7 +119,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardErrorOut(string stre)
         {
-            OnStandardErrorOut(new StandardErrorArg {ProcessId = ProcessId, OutPut = stre});
+            OnStandardErrorOut(new StandardErrorArg { ProcessId = ProcessId, OutPut = stre });
         }
 
         protected virtual void OnStandardOut(StandardOutArg e)
@@ -131,7 +131,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardOut(string stre)
         {
-            OnStandardOut(new StandardOutArg {ProcessId = ProcessId, OutPut = stre});
+            OnStandardOut(new StandardOutArg { ProcessId = ProcessId, OutPut = stre });
         }
 
         #endregion

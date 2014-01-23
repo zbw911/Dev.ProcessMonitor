@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestMonitor.cs" />
     <Compile Include="UnitTestProcessStart.cs" />
     <Compile Include="UnitTestCpuMem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +63,9 @@
       <Project>{bde30bd4-1a57-432b-80e2-ed052387926f}</Project>
       <Name>Dev.ProcessMonitor</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

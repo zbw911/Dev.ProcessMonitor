@@ -8,6 +8,8 @@
 //  如果有更好的建议或意见请邮件至 zbw911#gmail.com
 // ***********************************************************************************
 using System;
+using System.Configuration;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Dev.ProcessMonitor.FormTest
@@ -85,5 +87,11 @@ namespace Dev.ProcessMonitor.FormTest
         }
 
         #endregion
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Monitor m = new Monitor(true);
+            m.Start();
+        }
     }
 }

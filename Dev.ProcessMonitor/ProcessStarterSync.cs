@@ -28,6 +28,7 @@ namespace Dev.ProcessMonitor
 
         private BackgroundWorker _backgroundWorker1;
         private string _standardError;
+        private Process _process;
 
         #endregion
 
@@ -51,7 +52,19 @@ namespace Dev.ProcessMonitor
 
         #region Instance Properties
 
-        public int ProcessId { get; set; }
+        public int ProcessId
+        {
+            get
+            {
+                if (_process == null)
+                {
+                    return -1;
+                    throw new Exception("进程未初始化");
+                }
+                return _process.Id;
+            }
+
+        }
 
         #endregion
 
@@ -92,7 +105,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardErrorOut(string stre)
         {
-            OnStandardErrorOut(new StandardErrorArg {ProcessId = ProcessId, OutPut = stre});
+            OnStandardErrorOut(new StandardErrorArg { ProcessId = ProcessId, OutPut = stre });
         }
 
         protected virtual void OnStandardOut(StandardOutArg e)
@@ -104,7 +117,7 @@ namespace Dev.ProcessMonitor
 
         protected virtual void OnStandardOut(string stre)
         {
-            OnStandardOut(new StandardOutArg {ProcessId = ProcessId, OutPut = stre});
+            OnStandardOut(new StandardOutArg { ProcessId = ProcessId, OutPut = stre });
         }
 
         #endregion
@@ -119,36 +132,39 @@ namespace Dev.ProcessMonitor
 
             try
             {
-                var p = new Process();
+
+                Dev.Log.Loger.Error("现在启动的程序路径为=>" + parms.FileName);
+
+                _process = new Process();
                 //Asynchron read of standardoutput:
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.process.beginoutputreadline.aspx
-                //p.ErrorDataReceived  +=p_ErrorDataReceived;
 
-                p.ErrorDataReceived += p_ErrorDataReceived;
-                p.StartInfo.FileName = parms.FileName; //@"";
+
+                _process.ErrorDataReceived += ProcessErrorDataReceived;
+                _process.StartInfo.FileName = parms.FileName; //@"";
                 //http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandardoutput.aspx
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.CreateNoWindow = true;
+                _process.StartInfo.RedirectStandardOutput = true;
+                _process.StartInfo.RedirectStandardError = true;
+                _process.StartInfo.UseShellExecute = false;
+                _process.StartInfo.CreateNoWindow = true;
 
-                p.StartInfo.Arguments = parms.Arguments;
-                p.Start();
+                _process.StartInfo.Arguments = parms.Arguments;
+                _process.Start();
 
 
-                ProcessId = p.Id;
+                //ProcessId = _process.Id;
 
                 // http://msdn.microsoft.com/de-de/library/system.diagnostics.processstartinfo.redirectstandarderror.aspx
-                p.BeginErrorReadLine();
+                _process.BeginErrorReadLine();
                 string standardOut;
-                while (((standardOut = p.StandardOutput.ReadLine()) != null) && (!worker.CancellationPending))
+                while (((standardOut = _process.StandardOutput.ReadLine()) != null) && (!worker.CancellationPending))
                 {
                     OnStandardOut(standardOut);
                 }
                 if (!worker.CancellationPending)
                 {
-                    p.WaitForExit();
-                    string result = "Exited with the Exitcode: " + p.ExitCode + "\n" + _standardError;
+                    _process.WaitForExit();
+                    string result = "Exited with the Exitcode: " + _process.ExitCode + "\n" + _standardError;
                     OnStandardOut(result);
                 }
                 else
@@ -157,9 +173,9 @@ namespace Dev.ProcessMonitor
 
                     OnStandardOut(result);
 
-                    p.Close();
-                    p.CancelErrorRead();
-                    p.Dispose();
+                    _process.Close();
+                    _process.CancelErrorRead();
+                    _process.Dispose();
                 }
             }
             catch (Exception ex)
@@ -179,7 +195,7 @@ namespace Dev.ProcessMonitor
             OnFinished();
         }
 
-        private void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        private void ProcessErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             _standardError += e.Data;
         }

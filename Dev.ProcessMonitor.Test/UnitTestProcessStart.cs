@@ -55,7 +55,7 @@ namespace Dev.ProcessMonitor.Test
 
             p.Start();
 
-            Thread.Sleep(3*1000);
+            Thread.Sleep(3 * 1000);
 
             ProcessManager.KillProcessById(p.Id);
         }
@@ -78,6 +78,25 @@ namespace Dev.ProcessMonitor.Test
 
             p.Start();
         }
+
+
+
+        [TestMethod]
+        public void TestProcessPath()
+        {
+            //string filename = @"..\..\..\Dev.ProcessMonitor.TestTargerExe\bin\Debug\Dev.ProcessMonitor.TestTargerExe.exe";
+            //string arg = "";
+
+
+            //var ps = new Dev.ProcessMonitor.ProcessStarterSync(filename, arg);
+
+            var p = Process.GetProcessById(1688);
+
+            var path = Dev.ProcessMonitor.ProcessManager.ProcessPath(p);
+
+        }
+
+
 
         #endregion
     }

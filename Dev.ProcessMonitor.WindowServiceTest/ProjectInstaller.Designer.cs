@@ -39,7 +39,8 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.ServiceName = "AAA";
+            this.serviceInstaller1.DisplayName = "对进程进行监控";
+            this.serviceInstaller1.ServiceName = "ProcessMonitor";
             // 
             // ProjectInstaller
             // 
