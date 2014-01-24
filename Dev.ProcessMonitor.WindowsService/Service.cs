@@ -32,7 +32,7 @@ namespace Dev.ProcessMonitor.WindowsService
         {
             m = new Monitor(false);
 
-
+            Setting.SetLogSeverity(LogSeverity.Info);
             Setting.AttachLog(new ObserverLogToLog4net());
 
             InitializeComponent();
