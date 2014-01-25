@@ -16,6 +16,13 @@ namespace Dev.ProcessMonitor.WindowsService
     {
         #region Class Methods
 
+        //C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe [path]
+        // cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
+
+        // 测试的时候安装服务
+        //\bin\Debug>installutil Dev.ProcessMonitor.WindowsService.exe
+        //\bin\Debug>installutil /u Dev.ProcessMonitor.WindowsService.exe
+
         /// <summary>
         ///     应用程序的主入口点。
         /// </summary>
