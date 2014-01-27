@@ -30,9 +30,11 @@ namespace Dev.ProcessMonitor.WindowsService
 
         public Service()
         {
-            m = new Monitor(false);
-
-            Setting.SetLogSeverity(LogSeverity.Info);
+            //m = new Monitor(false);
+            m = new Monitor(true);
+            m.StandardErrorOut += m_StandardErrorOut;
+            m.StandardOut += m_StandardOut;
+            //Setting.SetLogSeverity(LogSeverity.Info);
             Setting.AttachLog(new ObserverLogToLog4net());
 
             InitializeComponent();
@@ -44,9 +46,7 @@ namespace Dev.ProcessMonitor.WindowsService
 
         protected override void OnStart(string[] args)
         {
-            m = new Monitor(true);
-            m.StandardErrorOut += m_StandardErrorOut;
-            m.StandardOut += m_StandardOut;
+           
             m.Start();
         }
 
